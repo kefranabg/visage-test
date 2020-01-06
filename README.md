@@ -1,5 +1,5 @@
-# My bento-starter project
+# Visage test
 
 ## Documentation
 
-Documentation available :point_right: [here](https://bento-starter.netlify.com/)
+Documentation available here :point_right: [here](https://bento-starter.netlify.com/)

@@ -1,52 +1,29 @@
 <template>
   <header class="navbar" :class="{ offline: !networkOnLine }">
     <router-link to="/home">
-      <img alt="logo-bento" class="logo" src="@/assets/img/bento-starter.svg" />
       <span class="site-name title-desktop">{{ appTitle }}</span>
       <span class="site-name title-mobile">{{ appShortTitle }}</span>
     </router-link>
     <div class="links">
       <nav class="nav-links">
         <div class="nav-item">
-          <router-link to="/products">Products</router-link>
+          <router-link to="/jobs">Jobs</router-link>
         </div>
-        <div v-if="!isUserLoggedIn && networkOnLine" class="nav-item">
-          <router-link to="/login">Login</router-link>
-        </div>
-        <div
-          v-if="isUserLoggedIn && networkOnLine"
-          class="nav-item logout-item"
-          @click="logout"
-        >
-          <a>Logout</a>
+        <div class="nav-item">
+          <router-link to="/favorites">Favorites</router-link>
         </div>
         <div v-if="!networkOnLine" class="nav-item offline-label">Offline</div>
       </nav>
-
-      <img
-        v-if="isUserLoggedIn && networkOnLine"
-        class="user-picture can-hide"
-        :src="user.photoURL"
-        alt="Avatar"
-      />
     </div>
   </header>
 </template>
 
 <script>
-import firebase from 'firebase/app'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters('authentication', ['isUserLoggedIn']),
-    ...mapState('authentication', ['user']),
     ...mapState('app', ['networkOnLine', 'appTitle', 'appShortTitle'])
-  },
-  methods: {
-    async logout() {
-      await firebase.auth().signOut()
-    }
   }
 }
 </script>
@@ -83,10 +60,6 @@ export default {
   @media (max-width: 500px) {
     padding: 0.7rem 0.7rem;
 
-    .can-hide {
-      display: none;
-    }
-
     .title-desktop {
       display: none;
     }
@@ -101,11 +74,6 @@ export default {
     font-weight: 600;
     color: #2c3e50;
     position: relative;
-  }
-
-  .logo {
-    height: 24px;
-    padding-right: 8px;
   }
 
   .links {
@@ -168,12 +136,6 @@ export default {
     .site-name {
       color: white;
     }
-  }
-
-  .user-picture {
-    max-height: 32px;
-    margin-left: 1.5rem;
-    border-radius: 50%;
   }
 
   .offline-label {
